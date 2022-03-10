@@ -6,7 +6,6 @@
 #include "def.h"
 
 typedef double  type_point;
-typedef int     type_id;
 typedef double  transfer_data;
 
 typedef struct 

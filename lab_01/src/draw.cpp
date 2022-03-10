@@ -6,10 +6,10 @@ static void draw_edge(painter_t painter, datapoints_t points, edge_t edge)
     point_t point_b = points.array[edge.point_b];
 
     painter.scene->addLine(
-        point_a.x + painter.width / 2,
-        point_a.y + painter.height / 2,
-        point_b.x + painter.width / 2,
-        point_b.y + painter.height / 2
+        painter.width / 2 + point_a.x,
+        painter.height / 2 - point_a.y,
+        painter.width / 2 + point_b.x,
+        painter.height / 2 - point_b.y
    );
 }
 

@@ -15,6 +15,11 @@ void fill_save_request(save_data &data, const char *filename)
     data.filename = filename;
 }
 
+void fill_center_request(center_data &data, point_t center)
+{
+    data.point = center;
+}
+
 void fill_move_request(move_data &data, transfer_t transform)
 {
     data.trasnform = transform;
@@ -30,6 +35,11 @@ void fill_rotate_request(rotate_data &data, transfer_t transform, point_t center
 {
     data.trasnform = transform;
     data.point = center;
+}
+
+void retrieve_center_request(point_t &center, find_center_data data)
+{
+    center = data.center;
 }
 
 static int center(figure_t &figure, center_data data)

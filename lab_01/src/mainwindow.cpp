@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->moveButton, SIGNAL(clicked()), this, SLOT(move_clicked()));
     connect(ui->rotateButton, SIGNAL(clicked()), this, SLOT(rotate_clicked()));
     connect(ui->scaleButton, SIGNAL(clicked()), this, SLOT(scale_clicked()));
+    connect(ui->centerButton, SIGNAL(clicked()), this, SLOT(center()));
     connect(ui->exitButton, SIGNAL(clicked()), this, SLOT(exit()));
     connect(ui->resetButton, SIGNAL(clicked()), this, SLOT(reset()));
     connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(load_clicked()));
@@ -25,6 +26,11 @@ MainWindow::~MainWindow()
     event_handler(request);
 
     delete ui;
+}
+
+double MainWindow::get_value(QDoubleSpinBox *form)
+{
+    return form->value();
 }
 
 int MainWindow::draw_obj(void)
@@ -109,9 +115,9 @@ void MainWindow::save_clicked(void)
 void MainWindow::move_clicked(void)
 {
     transfer_t transform;
-    transform.kx = ui->moveXForm->value();
-    transform.ky = ui->moveYForm->value();
-    transform.kz = ui->moveZForm->value();
+    transform.kx = get_value(ui->moveXForm);
+    transform.ky = get_value(ui->moveYForm);
+    transform.kz = get_value(ui->moveZForm);
 
     request_t request;
     request.task = MOVE;
@@ -130,21 +136,20 @@ void MainWindow::move_clicked(void)
 void MainWindow::scale_clicked(void)
 {
     transfer_t scale;
-    scale.kx = ui->scaleXForm->value();
-    scale.ky = ui->scaleYForm->value();
-    scale.kz = ui->scaleZForm->value();
+    scale.kx = get_value(ui->scaleXForm);
+    scale.ky = get_value(ui->scaleYForm);
+    scale.kz = get_value(ui->scaleZForm);
 
     request_t request;
     request.task = FIND_CENTER;
-    point_t center;
-    request.center.point = center;
     int error_code = event_handler(request);
     if (error_code != OK)
     {
         log_error(error_code);
         return;
     }
-    center = request.center.point;
+    point_t center;
+    retrieve_center_request(center, request.find_center);
     request.task = SCALE;
     fill_scale_request(request.scale, scale, center);
     
@@ -162,21 +167,20 @@ void MainWindow::scale_clicked(void)
 void MainWindow::rotate_clicked(void)
 {
     transfer_t rotate;
-    rotate.kx = ui->rotateXForm->value();
-    rotate.ky = ui->rotateYForm->value();
-    rotate.kz = ui->rotateZForm->value();
+    rotate.kx = get_value(ui->rotateXForm);
+    rotate.ky = get_value(ui->rotateYForm);
+    rotate.kz = get_value(ui->rotateZForm);
 
     request_t request;
     request.task = FIND_CENTER;
-    point_t center;
-    request.center.point = center;
     int error_code = event_handler(request);
     if (error_code != OK)
     {
         log_error(error_code);
         return;
     }
-    center = request.center.point;
+    point_t center;
+    retrieve_center_request(center, request.find_center);
     request.task = ROTATE;
     fill_rotate_request(request.rotate, rotate, center);
     
@@ -187,6 +191,31 @@ void MainWindow::rotate_clicked(void)
     }
 
     if (error_code)
+    {
+        log_error(error_code);
+    }
+}
+
+void MainWindow::center(void)
+{
+    painter_t painter;
+    painter.scene = ui->graphicsView->scene();
+    painter.scene->clear();
+    painter.width = painter.scene->width();
+    painter.height = painter.scene->height();
+    point_t center;
+    center.x = 0;
+    center.y = 0;
+    center.z = 0;
+    request_t request;
+    request.task = CENTER;
+    fill_center_request(request.center, center);
+    int error_code = event_handler(request);
+    if (error_code == OK)
+    {
+        error_code = draw_obj();
+    }
+    if (error_code != OK)
     {
         log_error(error_code);
     }
@@ -210,9 +239,5 @@ void MainWindow::reset(void)
 
 void MainWindow::exit(void)
 {
-    request_t request;
-    request.task = EXIT;
-    event_handler(request);
-
     QApplication::quit();
 }

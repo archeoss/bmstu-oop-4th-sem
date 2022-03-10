@@ -76,15 +76,9 @@ void fill_save_request(save_data &data, const char *filename);
 void fill_move_request(move_data &data, transfer_t transform);
 void fill_scale_request(scale_data &data, transfer_t transform, point_t center);
 void fill_rotate_request(rotate_data &data, transfer_t transform, point_t center);
+void fill_center_request(center_data &data, point_t center);
+void retrieve_center_request(point_t &center, find_center_data data);
 
 int event_handler(request_t &);
-// int save(figure_t &, save_data);
-// int load(figure_t &, load_data);
-// int rotate(figure_t &, rotate_data);
-// int move(figure_t &, move_data);
-// int scale(figure_t &, scale_data);
-// int draw(figure_t &);
-// int reset(figure_t &);
-// int exit(figure_t &);
 
 #endif

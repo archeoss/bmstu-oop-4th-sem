@@ -245,7 +245,7 @@
       <x>1230</x>
       <y>350</y>
       <width>131</width>
-      <height>201</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -416,8 +416,8 @@
     <widget class="QPushButton" name="rotateButton">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>170</y>
+       <x>10</x>
+       <y>160</y>
        <width>111</width>
        <height>21</height>
       </rect>
@@ -696,6 +696,43 @@
      </property>
      <property name="text">
       <string>Reset</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_7">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>550</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="centerButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Center</string>
      </property>
     </widget>
    </widget>

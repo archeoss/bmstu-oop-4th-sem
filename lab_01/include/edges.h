@@ -5,6 +5,10 @@
 #include "errors.h"
 #include "def.h"
 
+typedef int     type_id;
+/*
+    Describes id's of points, that's being connected
+*/
 typedef struct 
 {
     type_id point_a,
@@ -17,6 +21,6 @@ typedef struct
     edge_t *array = NULL;
 } dataedges_t;
 
-int check_edges(dataedges_t data);
+int check_edges(dataedges_t edges, datapoints_t points);
 
 #endif

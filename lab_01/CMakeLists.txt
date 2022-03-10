@@ -31,26 +31,26 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS
     ui
 )
-# add_compile_options(
-#     -Werror
+add_compile_options(
+    -Werror
 
-#     -Wall
-#     -Wextra
-#     -Wpedantic
+    -Wall
+    -Wextra
+    -Wpedantic
 
-#     -Wcast-align
-#     -Wcast-qual
-#     -Wconversion
-#     -Wctor-dtor-privacy
-#     -Wenum-compare
-#     -Wfloat-equal
-#     -Wnon-virtual-dtor
-#     -Wold-style-cast
-#     -Woverloaded-virtual
-#     -Wredundant-decls
-#     -Wsign-promo
+    -Wcast-align
+    -Wcast-qual
+    -Wconversion
+    -Wctor-dtor-privacy
+    -Wenum-compare
+    -Wfloat-equal
+    -Wnon-virtual-dtor
+    -Wold-style-cast
+    -Woverloaded-virtual
+    -Wredundant-decls
+    -Wsign-promo
     
-# )
+)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
@@ -58,7 +58,7 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 # Make an automatic library - will be static or dynamic based on user setting
 QT6_WRAP_UI( UI_HEADERS ui/mainwindow.ui )
-add_library(main_library STATIC src/requests.cpp src/mainwindow.cpp src/figure.cpp src/io.cpp src/alloc.cpp src/edges.cpp src/draw.cpp src/errors.cpp src/points.cpp src/backup.cpp ${HEADER_LIST} ${UI_HEADERS})
+add_library(main_library SHARED src/requests.cpp src/mainwindow.cpp src/figure.cpp src/io.cpp src/alloc.cpp src/edges.cpp src/draw.cpp src/errors.cpp src/points.cpp src/backup.cpp ${HEADER_LIST} ${UI_HEADERS})
 target_include_directories(main_library PUBLIC ./include)
 target_link_libraries(main_library PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_compile_features(main_library PUBLIC cxx_std_11)

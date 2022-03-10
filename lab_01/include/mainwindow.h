@@ -20,6 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    
 private slots:
 
     int draw_obj(void);
@@ -28,10 +29,12 @@ private slots:
     void move_clicked(void);
     void rotate_clicked(void);
     void scale_clicked(void);
+    void center(void);
     void reset(void);
     void exit(void);
 
 private:
+    double get_value(QDoubleSpinBox *form);
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

@@ -12,7 +12,7 @@ template <typename data_type>
 void free_data(data_type data)
 {
     data.amount = 0;
-    free_array(static_cast<void *>(data.array));
+    free_array(data.array);
 }
 
 figure_t &init_figure(void)
@@ -27,20 +27,29 @@ figure_t &init_figure(void)
 
 int destroy_figure(figure_t &figure)
 {
-    free_data<datapoints_t>(figure.points);
-    free_data<dataedges_t>(figure.edges);
-    free(figure.name);
-    
+    if (figure.created == YES)
+    {
+        free_data<datapoints_t>(figure.points);
+        free_data<dataedges_t>(figure.edges);
+        free(figure.name);
+        figure.created = NO;
+    }
+
     return OK;
 }
 
 int center_figure(figure_t &figure, point_t center)
 {
-    transfer_t transfer;
-    transfer.kx = center.x;
-    transfer.ky = center.y;
-    transfer.kz = center.z;
-    int error_code = move_points(figure.points, transfer);
+    point_t center_obj;
+    int error_code = find_center(center_obj, figure.points);
+    if (error_code == OK)
+    {
+        transfer_t transfer;
+        transfer.kx = center.x - center_obj.x;
+        transfer.ky = center.y - center_obj.y;
+        transfer.kz = 0;
+        error_code = move_points(figure.points, transfer);
+    }
 
     return error_code;
 }
@@ -64,7 +73,7 @@ int check_figure(figure_t figure)
 {
     int error_code = check_points(figure.points);
     if (error_code == OK)
-        error_code = check_edges(figure.edges);
+        error_code = check_edges(figure.edges, figure.points);
     
     return error_code;
 }

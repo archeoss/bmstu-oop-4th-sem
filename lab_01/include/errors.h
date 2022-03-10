@@ -14,6 +14,7 @@
 #define INSUFFICIENT_LINKS  -10
 #define CANNOT_OPEN_DIALOG  -11
 #define NO_BACKUP           -12
+#define EDGES_EXCEED_POINTS -13
 
 #include <QMessageBox>
 #include <stdlib.h>

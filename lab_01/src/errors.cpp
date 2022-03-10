@@ -36,7 +36,10 @@ void log_error(int err)
             break;
         case NO_BACKUP:
             QMessageBox::critical(NULL, "Ошибка", "Файл сброса не найден.");
-            break;    
+            break;
+        case EDGES_EXCEED_POINTS:
+            QMessageBox::critical(NULL, "Ошибка", "Значения краев модели не совпадают с точками.");
+            break;
         default:
             QMessageBox::critical(NULL, "Ошибка", "Неизвестная ошибка.");
     }
