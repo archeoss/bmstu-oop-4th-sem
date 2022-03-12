@@ -2,7 +2,7 @@
 
 double to_radians(double degrees)
 {
-    return degrees * PI / 180;
+    return degrees * M_PI / 180;
 }
 
 void rotate_xpoint(point_t &point, double degree, point_t center)
@@ -41,7 +41,7 @@ void rotate_zpoint(point_t &point, double degree, point_t center)
     point.y = y_real * cos_r + x_real * sin_r + center.y;
 }
 
-int rotate_points(datapoints_t &data, transfer_t degrees, point_t center)
+int rotate_points(datapoints_t &data, transform_t degrees, point_t center)
 {
     if (data.amount < 1)
         return EMPTY_DATA;
@@ -65,7 +65,7 @@ int rotate_points(datapoints_t &data, transfer_t degrees, point_t center)
     return OK;
 }
 
-int scale_point(point_t &point, transfer_t scale, point_t center)
+int scale_point(point_t &point, transform_t scale, point_t center)
 {
     if (fabs(scale.kx) < EPS || fabs(scale.ky) < EPS || fabs(scale.kz) < EPS) 
         return SMALL_SCALE_ERROR;
@@ -77,7 +77,7 @@ int scale_point(point_t &point, transfer_t scale, point_t center)
     return OK;
 }
 
-int scale_points(datapoints_t &data, transfer_t scale, point_t center)
+int scale_points(datapoints_t &data, transform_t scale, point_t center)
 {
     if (data.amount < 1)
         return EMPTY_DATA;
@@ -89,17 +89,17 @@ int scale_points(datapoints_t &data, transfer_t scale, point_t center)
         error_code = scale_point(data.array[i++], scale, center);
     }
 
-    return OK;
+    return error_code;
 }
 
-void move_point(point_t &point, transfer_t move)
+void move_point(point_t &point, transform_t move)
 {
     point.x += move.kx;
     point.y += move.ky;
     point.z += move.kz;
 }
 
-int move_points(datapoints_t &data, transfer_t move)
+int move_points(datapoints_t &data, transform_t move)
 {
     if (data.amount < 1)
         return EMPTY_DATA;

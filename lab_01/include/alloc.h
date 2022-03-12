@@ -5,10 +5,9 @@
 #include "errors.h"
 #include "figure.h"
 
-template <typename array_type>
-int alloc_array(array_type *&array, int n);
+int alloc_array(edge_t *&array, int n);
+int alloc_array(point_t *&array, int n);
 
 void free_array(void *array);
-
 
 #endif

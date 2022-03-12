@@ -1,10 +1,21 @@
 #include "alloc.h"
 
-template <typename array_type>
-int alloc_array(array_type *&array, int n)
+int alloc_array(edge_t *&array, int n)
 {
     int error_code = OK;
-    array = static_cast<array_type *>(malloc(n * sizeof(array_type)));
+    array = static_cast<edge_t *>(malloc(n * sizeof(edge_t)));
+    if (!array)
+    {
+        error_code = ALLOC_ERROR;
+    }
+
+    return error_code;
+}
+
+int alloc_array(point_t *&array, int n)
+{
+    int error_code = OK;
+    array = static_cast<point_t *>(malloc(n * sizeof(point_t)));
     if (!array)
     {
         error_code = ALLOC_ERROR;
@@ -20,5 +31,3 @@ void free_array(void *array)
         free(array);
     }
 }
-
-#include "alloc.inl"

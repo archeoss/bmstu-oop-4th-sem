@@ -54,14 +54,29 @@ static int read_amount(FILE *f, type_id &amount)
     return error_code;
 }
 
-template <typename data_type, typename array_type>
-static int load_data(FILE *f, data_type &data, int (* interpretator)(FILE *, data_type &))
+static int load_data(FILE *f, dataedges_t &data, int (* interpretator)(FILE *, dataedges_t &))
 {
     int error_code = OK;
     error_code = read_amount(f, data.amount);
     if (error_code == OK)
     {
-        error_code = alloc_array<array_type>(data.array, data.amount);
+        error_code = alloc_array(data.array, data.amount);
+    }
+    if (error_code == OK)
+    {
+        error_code = interpretator(f, data);
+    }
+
+    return error_code;
+}
+
+static int load_data(FILE *f, datapoints_t &data, int (* interpretator)(FILE *, datapoints_t &))
+{
+    int error_code = OK;
+    error_code = read_amount(f, data.amount);
+    if (error_code == OK)
+    {
+        error_code = alloc_array(data.array, data.amount);
     }
     if (error_code == OK)
     {
@@ -91,24 +106,28 @@ int load_figure(figure_t &figure, const char *filename)
     if (!f)
         return FILE_NOT_EXIST;
     figure_t figure_temp;
-    int error_code = load_data<datapoints_t, point_t>(f, figure_temp.points, read_points);
+    int error_code = load_data(f, figure_temp.points, read_points);
     if (error_code == OK)
     {
-        error_code = load_data<dataedges_t, edge_t>(f, figure_temp.edges, read_edges);
+        error_code = load_data(f, figure_temp.edges, read_edges);
+    }
+    if (error_code == OK)
+    {
+        error_code = check_figure(figure_temp);
     }
     if (error_code != OK)
     {
-        free_data<datapoints_t>(figure_temp.points);
-        free_data<dataedges_t>(figure_temp.edges);
+        free_data(figure_temp.points);
+        free_data(figure_temp.edges);
     }
     else
     {
-        if (figure.created == YES)
+        if (figure.created == 1)
         {
             destroy_figure(figure);
             figure = init_figure();
         }
-        figure.created = YES;
+        figure.created = 1;
         figure.points = figure_temp.points;
         figure.edges = figure_temp.edges;
         strcpy(figure.name, filename);

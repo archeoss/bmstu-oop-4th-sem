@@ -2,7 +2,6 @@
 #define _DRAW_H_
 
 #include "figure.h"
-#include "ui_mainwindow.h"
 #include <QGraphicsScene>
 
 typedef struct

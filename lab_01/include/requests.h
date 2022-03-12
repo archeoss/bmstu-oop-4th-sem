@@ -5,6 +5,7 @@
 #include "io.h"
 #include "draw.h"
 #include "backup.h"
+
 enum TASKS {LOAD, SAVE, SAVE_BACKUP, CENTER, ROTATE, FIND_CENTER, SCALE, MOVE, DRAW, RESET, EXIT};
 
 typedef struct 
@@ -25,18 +26,18 @@ typedef struct
 typedef struct 
 {
     point_t point;
-    transfer_t trasnform;
+    transform_t trasnform;
 } rotate_data;
 
 typedef struct
 {
     point_t point;
-    transfer_t trasnform;
+    transform_t trasnform;
 } scale_data;
 
 typedef struct
 {
-    transfer_t trasnform;
+    transform_t trasnform;
 } move_data;
 
 typedef struct
@@ -73,9 +74,9 @@ typedef struct
 void fill_draw_request(draw_data &data, painter_t painter);
 void fill_load_request(load_data &data, const char *filename);
 void fill_save_request(save_data &data, const char *filename);
-void fill_move_request(move_data &data, transfer_t transform);
-void fill_scale_request(scale_data &data, transfer_t transform, point_t center);
-void fill_rotate_request(rotate_data &data, transfer_t transform, point_t center);
+void fill_move_request(move_data &data, transform_t transform);
+void fill_scale_request(scale_data &data, transform_t transform, point_t center);
+void fill_rotate_request(rotate_data &data, transform_t transform, point_t center);
 void fill_center_request(center_data &data, point_t center);
 void retrieve_center_request(point_t &center, find_center_data data);
 

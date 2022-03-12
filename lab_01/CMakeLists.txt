@@ -12,8 +12,6 @@ set(HEADER_LIST
 "${OOP_Lab_01_SOURCE_DIR}/include/points.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/errors.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/alloc.h"
-"${OOP_Lab_01_SOURCE_DIR}/include/alloc.inl"
-"${OOP_Lab_01_SOURCE_DIR}/include/def.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/figure.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/edges.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/requests.h"

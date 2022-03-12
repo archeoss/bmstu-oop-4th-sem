@@ -20,18 +20,18 @@ void fill_center_request(center_data &data, point_t center)
     data.point = center;
 }
 
-void fill_move_request(move_data &data, transfer_t transform)
+void fill_move_request(move_data &data, transform_t transform)
 {
     data.trasnform = transform;
 }
 
-void fill_scale_request(scale_data &data, transfer_t transform, point_t center)
+void fill_scale_request(scale_data &data, transform_t transform, point_t center)
 {
     data.trasnform = transform;
     data.point = center;
 }
 
-void fill_rotate_request(rotate_data &data, transfer_t transform, point_t center)
+void fill_rotate_request(rotate_data &data, transform_t transform, point_t center)
 {
     data.trasnform = transform;
     data.point = center;
@@ -77,7 +77,7 @@ static int draw(figure_t &figure, draw_data data)
     return draw_figure(data.painter, figure);
 }
 
-static int find_c(find_center_data &data, figure_t figure)
+static int find_cntr(find_center_data &data, figure_t figure)
 {
     return find_center(data.center, figure.points);
 }
@@ -127,7 +127,7 @@ int event_handler(request_t &request)
             break;
 
         case FIND_CENTER:
-            error_code = find_c(request.find_center, figure);
+            error_code = find_cntr(request.find_center, figure);
             break;
 
         case SAVE_BACKUP:

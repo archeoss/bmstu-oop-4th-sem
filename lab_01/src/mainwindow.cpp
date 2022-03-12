@@ -114,7 +114,7 @@ void MainWindow::save_clicked(void)
 
 void MainWindow::move_clicked(void)
 {
-    transfer_t transform;
+    transform_t transform;
     transform.kx = get_value(ui->moveXForm);
     transform.ky = get_value(ui->moveYForm);
     transform.kz = get_value(ui->moveZForm);
@@ -135,7 +135,7 @@ void MainWindow::move_clicked(void)
 
 void MainWindow::scale_clicked(void)
 {
-    transfer_t scale;
+    transform_t scale;
     scale.kx = get_value(ui->scaleXForm);
     scale.ky = get_value(ui->scaleYForm);
     scale.kz = get_value(ui->scaleZForm);
@@ -166,7 +166,7 @@ void MainWindow::scale_clicked(void)
 
 void MainWindow::rotate_clicked(void)
 {
-    transfer_t rotate;
+    transform_t rotate;
     rotate.kx = get_value(ui->rotateXForm);
     rotate.ky = get_value(ui->rotateYForm);
     rotate.kz = get_value(ui->rotateZForm);

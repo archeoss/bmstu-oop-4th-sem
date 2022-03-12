@@ -4,7 +4,9 @@
 #include "points.h"
 #include "edges.h"
 #include "alloc.h"
-#include "def.h"
+
+#define MAX_STR_SIZE 256
+
 typedef struct
 {
     int             created;
@@ -16,13 +18,13 @@ typedef struct
 figure_t &init_figure(void);
 
 int destroy_figure(figure_t &figure);
-int rotate_figure(figure_t &figure, transfer_t degrees, point_t center);
+int rotate_figure(figure_t &figure, transform_t degrees, point_t center);
 int center_figure(figure_t &figure, point_t center);
-int move_figure(figure_t &figure, transfer_t transform);
-int scale_figure(figure_t &figure, transfer_t transform, point_t center);
+int move_figure(figure_t &figure, transform_t transform);
+int scale_figure(figure_t &figure, transform_t transform, point_t center);
 
-template <typename data_type>
-void free_data(data_type data);
+void free_data(dataedges_t data);
+void free_data(datapoints_t data);
 int check_figure(figure_t figure);
 
 #endif

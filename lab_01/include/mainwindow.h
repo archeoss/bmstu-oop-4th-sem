@@ -4,6 +4,7 @@
 #include "requests.h"
 #include "figure.h"
 #include "points.h"
+#include "ui_mainwindow.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QFileDialog>

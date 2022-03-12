@@ -6,6 +6,8 @@
 #include "errors.h"
 #include "alloc.h"
 
+#define MAX_STR_SIZE 256
+
 int save_figure(const char *filename, figure_t figure);
 int load_figure(figure_t &figure, const char *filename);
 

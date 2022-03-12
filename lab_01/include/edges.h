@@ -3,7 +3,8 @@
 
 #include "points.h"
 #include "errors.h"
-#include "def.h"
+
+#define MIN_LINKS 1
 
 typedef int     type_id;
 /*
