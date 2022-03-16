@@ -14,7 +14,7 @@ int check_edges(dataedges_t edges, datapoints_t points)
         error_code = INSUFFICIENT_LINKS;
     else
     {
-        for (int i = 0; i < edges.amount && error_code == OK; i++)
+        for (int i = 0; error_code == OK && i < edges.amount; i++)
         {
             error_code = check_validaty(edges.array[i], points.amount);
         }
