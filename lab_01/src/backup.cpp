@@ -25,7 +25,7 @@ int load_backup(figure_t &figure)
     }
     if (error_code == OK)
     {
-        strcpy(figure.name, name); 
+        strcpy(figure.name, name);
     }
     if (error_code != OK)
     {

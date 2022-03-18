@@ -3,11 +3,8 @@
 
 #include <malloc.h>
 #include "errors.h"
-#include "figure.h"
 
-int alloc_array(edge_t *&array, int n);
-int alloc_array(point_t *&array, int n);
-
+int alloc_array(void *&array, int n, size_t ssize);
 void free_array(void *array);
 
 #endif

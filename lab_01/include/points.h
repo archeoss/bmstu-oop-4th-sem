@@ -1,5 +1,6 @@
 #ifndef _POINTS_H_
 #define _POINTS_H_
+
 #include <stdlib.h>
 #include <math.h>
 #include "errors.h"

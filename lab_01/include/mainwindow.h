@@ -3,7 +3,6 @@
 
 #include "requests.h"
 #include "figure.h"
-#include "points.h"
 #include "ui_mainwindow.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
@@ -38,4 +37,5 @@ private:
     double get_value(QDoubleSpinBox *form);
     Ui::MainWindow *ui;
 };
-#endif // MAINWINDOW_H
+
+#endif 

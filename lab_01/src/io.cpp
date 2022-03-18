@@ -1,45 +1,44 @@
 #include "io.h"
 
-static int read_point(FILE *f, point_t &point)
+static int read_point(point_t &point, FILE *f)
 {
     return fscanf(f, "%lf%lf%lf", &point.x, &point.y, &point.z);
 }
 
-static int read_points(FILE *f, datapoints_t &data)
+static int read_points(datapoints_t &data, FILE *f)
 {
     int i = 0,
         error_code = OK;
 
     while (error_code == OK && i < data.amount)
     {
-        if (read_point(f, data.array[i++]) != 3)
+        if (read_point(data.array[i++], f) != 3)
             error_code = INCORRECT_DATA;
     }
 
     return error_code;
 }
 
-static int read_edge(FILE *f, edge_t &edge)
+static int read_edge(edge_t &edge, FILE *f)
 {
     return fscanf(f, "%d%d", &edge.point_a, &edge.point_b);
 }
 
-static int read_edges(FILE *f, dataedges_t &data)
+static int read_edges(dataedges_t &data, FILE *f)
 {
     int i = 0,
         error_code = OK;
 
     while (error_code == OK && i < data.amount)
     {
-        if (read_edge(f, data.array[i++]) != 2)
-            error_code = INCORRECT_DATA;
-        
+        if (read_edge(data.array[i++], f) != 2)
+            error_code = INCORRECT_DATA;        
     }
 
     return error_code;
 }
 
-static int read_amount(FILE *f, type_id &amount)
+static int read_amount(type_id &amount, FILE *f)
 {
     int error_code = OK;
     if(!fscanf(f, "%d", &amount))
@@ -54,33 +53,62 @@ static int read_amount(FILE *f, type_id &amount)
     return error_code;
 }
 
-static int load_data(FILE *f, dataedges_t &data, int (* interpretator)(FILE *, dataedges_t &))
+static int load_data(dataedges_t &data, FILE *f, int (* interpretator)(dataedges_t &, FILE *))
 {
     int error_code = OK;
-    error_code = read_amount(f, data.amount);
+    void *arr_tmp = NULL;
+    error_code = read_amount(data.amount, f);
     if (error_code == OK)
     {
-        error_code = alloc_array(data.array, data.amount);
-    }
-    if (error_code == OK)
-    {
-        error_code = interpretator(f, data);
+        error_code = alloc_array(arr_tmp, data.amount, sizeof(edge_t));
+    
+        if (error_code == OK)
+        {
+            data.array = static_cast<edge_t *>(arr_tmp);
+            error_code = interpretator(data, f);
+            
+            if (error_code != OK)
+            {
+                free_data(data);
+                data.array = NULL;
+            }
+        }
     }
 
     return error_code;
 }
 
-static int load_data(FILE *f, datapoints_t &data, int (* interpretator)(FILE *, datapoints_t &))
+static int load_data(datapoints_t &data, FILE *f, int (* interpretator)(datapoints_t &, FILE *))
 {
     int error_code = OK;
-    error_code = read_amount(f, data.amount);
+    void *arr_p = NULL;
+    error_code = read_amount(data.amount, f);
     if (error_code == OK)
     {
-        error_code = alloc_array(data.array, data.amount);
+        error_code = alloc_array(arr_p, data.amount, sizeof(point_t));
+    
+        if (error_code == OK)
+        {
+            data.array = static_cast<point_t *>(arr_p);
+            error_code = interpretator(data, f);
+
+            if (error_code != OK)
+            {
+                free_data(data);
+                data.array = NULL;
+            }
+        }
     }
-    if (error_code == OK)
+
+    return error_code;
+}
+
+static int load_temp_figure(figure_t &figure, FILE *f)
+{
+    int error_code = OK;
+    if ((error_code = load_data(figure.points, f, read_points)) == OK)
     {
-        error_code = interpretator(f, data);
+        error_code = load_data(figure.edges, f, read_edges);
     }
 
     return error_code;
@@ -101,38 +129,30 @@ int load_figure(figure_t &figure, const char *filename)
 {
     if (!filename)
         return INCORRECT_DATA;
-    
+
     FILE *f = fopen(filename, "r");
     if (!f)
         return FILE_NOT_EXIST;
-    figure_t figure_temp;
-    int error_code = load_data(f, figure_temp.points, read_points);
-    if (error_code == OK)
-    {
-        error_code = load_data(f, figure_temp.edges, read_edges);
-    }
+
+    figure_t figure_temp = init_figure(filename);
+    int error_code = load_temp_figure(figure_temp, f);
+    
+    fclose(f);
+
     if (error_code == OK)
     {
         error_code = check_figure(figure_temp);
-    }
-    if (error_code != OK)
-    {
-        free_data(figure_temp.points);
-        free_data(figure_temp.edges);
-    }
-    else
-    {
-        if (figure.created == 1)
+        if (error_code != OK)
         {
-            destroy_figure(figure);
-            figure = init_figure();
+            destroy_figure(figure_temp);
         }
-        figure.created = 1;
-        figure.points = figure_temp.points;
-        figure.edges = figure_temp.edges;
-        strcpy(figure.name, filename);
     }
-    fclose(f);
+
+    if (error_code == OK)
+    {
+        destroy_figure(figure);
+        figure = figure_temp;
+    }
 
     return error_code;
 }

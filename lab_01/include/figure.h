@@ -4,18 +4,19 @@
 #include "points.h"
 #include "edges.h"
 #include "alloc.h"
+#include <stdlib.h>
 
 #define MAX_STR_SIZE 256
 
 typedef struct
 {
-    int             created;
     char *          name;
     datapoints_t    points;
     dataedges_t     edges;
 } figure_t;
 
 figure_t &init_figure(void);
+figure_t &init_figure(const char *name);
 
 int destroy_figure(figure_t &figure);
 int rotate_figure(figure_t &figure, transform_t degrees, point_t center);

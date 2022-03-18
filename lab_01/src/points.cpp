@@ -130,28 +130,50 @@ static double min(double a, double b)
     return a < b ? a : b;  
 }
 
+static void find_max(point_t &max_point, point_t *array, int n)
+{
+    double  x_max = array[0].x,
+            y_max = array[0].y,
+            z_max = array[0].z;
+           
+    for (int i = 1; i < n; i++)
+    {
+        x_max = max(array[i].x, x_max);
+        y_max = max(array[i].y, y_max);
+        z_max = max(array[i].z, z_max);
+    }
+
+    max_point.x = x_max, max_point.y = y_max, max_point.z = z_max;
+}
+
+static void find_min(point_t &min_point, point_t *array, int n)
+{
+    double  x_min = array[0].x,
+            y_min = array[0].y,
+            z_min = array[0].z;
+           
+    for (int i = 1; i < n; i++)
+    {
+        x_min = min(array[i].x, x_min);
+        y_min = min(array[i].y, y_min);
+        z_min = min(array[i].z, z_min);
+    }
+
+    min_point.x = x_min, min_point.y = y_min, min_point.z = z_min;
+}
+
 int find_center(point_t &center, datapoints_t data)
 {
     if (data.amount < MIN_POINTS)
         return INSUFFICIENT_POINTS;
     
-    double  x_max = data.array[0].x, x_min = data.array[0].x,
-            y_max = data.array[0].y, y_min = data.array[0].y,
-            z_max = data.array[0].z, z_min = data.array[0].z;
-           
-    for (int i = 1; i < data.amount; i++)
-    {
-        x_max = max(data.array[i].x, x_max);
-        y_max = max(data.array[i].y, y_max);
-        z_max = max(data.array[i].z, z_max);
-        x_min = min(data.array[i].x, x_min);
-        y_min = min(data.array[i].y, y_min);
-        z_min = min(data.array[i].z, z_min);
-    }
+    point_t max_point, min_point;
+    find_max(max_point, data.array, data.amount);
+    find_min(min_point, data.array, data.amount);
 
-    center.x = (x_max + x_min) / 2;
-    center.y = (y_max + y_min) / 2;
-    center.z = (z_max + z_min) / 2;
+    center.x = (max_point.x + min_point.x) / 2;
+    center.y = (max_point.y + min_point.y) / 2;
+    center.z = (max_point.z + min_point.z) / 2;
     
     return OK;
 }

@@ -24,10 +24,8 @@ static void draw_edges(painter_t painter, dataedges_t edges, datapoints_t points
 int draw_figure(painter_t &painter, figure_t figure)
 {
     int error_code = check_figure(figure);
-    if (error_code != OK)
-        return error_code;
-    
-    draw_edges(painter, figure.edges, figure.points);
+    if (error_code == OK)
+        draw_edges(painter, figure.edges, figure.points);
     
     return error_code;
 }

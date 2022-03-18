@@ -40,6 +40,9 @@ void log_error(int err)
         case EDGES_EXCEED_POINTS:
             QMessageBox::critical(NULL, "Ошибка", "Значения краев модели не совпадают с точками.");
             break;
+        case CANNOT_OPEN_DIALOG:
+            QMessageBox::critical(NULL, "Ошибка", "Файл не выбран");
+            break;
         default:
             QMessageBox::critical(NULL, "Ошибка", "Неизвестная ошибка.");
     }

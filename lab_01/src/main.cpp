@@ -1,6 +1,4 @@
 #include "mainwindow.h"
-#include "figure.h"
-#include "io.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
