@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "errors.h"
+#include "alloc.h"
 
 #define MIN_POINTS 2
 
@@ -32,15 +33,20 @@ typedef struct
                     kz;
 } transform_t;
 
+void from_center(point_t &point, point_t center);
+void to_center(point_t &point, point_t center);
 double to_radians(double degrees);
-void rotate_xpoint(point_t &point, double degree, point_t center);
-void rotate_ypoint(point_t &point, double degree, point_t center);
-void rotate_zpoint(point_t &point, double degree, point_t center);
+void rotate_xpoint(point_t &point, double degree);
+void rotate_ypoint(point_t &point, double degree);
+void rotate_zpoint(point_t &point, double degree);
 int rotate_points(datapoints_t &data, transform_t degrees, point_t center);
-int scale_point(point_t &point, transform_t scale, point_t center);
+int scale_point(point_t &point, transform_t scale);
 int scale_points(datapoints_t &data, transform_t scale, point_t center);
 void move_point(point_t &point, transform_t move);
 int move_points(datapoints_t &data, transform_t move);
 int check_points(datapoints_t &data);
 int find_center(point_t &center, datapoints_t data);
+int alloc_points(point_t *&array, int amount);
+void free_points(point_t *&points);
+
 #endif

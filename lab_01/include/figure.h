@@ -1,7 +1,6 @@
 #ifndef _FIGURE_H_
 #define _FIGURE_H_
 
-#include "points.h"
 #include "edges.h"
 #include "alloc.h"
 #include <stdlib.h>

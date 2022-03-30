@@ -15,6 +15,7 @@ set(HEADER_LIST
 "${OOP_Lab_01_SOURCE_DIR}/include/figure.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/edges.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/requests.h"
+"${OOP_Lab_01_SOURCE_DIR}/include/events.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/draw.h"
 "${OOP_Lab_01_SOURCE_DIR}/include/backup.h"
 )
@@ -56,7 +57,7 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 # Make an automatic library - will be static or dynamic based on user setting
 QT6_WRAP_UI( UI_HEADERS ui/mainwindow.ui )
-add_library(main_library SHARED src/requests.cpp src/mainwindow.cpp src/figure.cpp src/io.cpp src/alloc.cpp src/edges.cpp src/draw.cpp src/errors.cpp src/points.cpp src/backup.cpp ${HEADER_LIST} ${UI_HEADERS})
+add_library(main_library SHARED src/requests.cpp src/events.cpp src/mainwindow.cpp src/figure.cpp src/io.cpp src/alloc.cpp src/edges.cpp src/draw.cpp src/errors.cpp src/points.cpp src/backup.cpp ${HEADER_LIST} ${UI_HEADERS})
 target_include_directories(main_library PUBLIC ./include)
 target_link_libraries(main_library PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_compile_features(main_library PUBLIC cxx_std_11)

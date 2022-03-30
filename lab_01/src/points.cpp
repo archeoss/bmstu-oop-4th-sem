@@ -1,44 +1,61 @@
 #include "points.h"
 
+void to_center(point_t &point, point_t center)
+{
+    point.x -= center.x;
+    point.y -= center.y;
+    point.z -= center.z;
+}
+
+void from_center(point_t &point, point_t center)
+{
+    point.x += center.x;
+    point.y += center.y;
+    point.z += center.z;
+}
+
 double to_radians(double degrees)
 {
     return degrees * M_PI / 180;
 }
 
-void rotate_xpoint(point_t &point, double degree, point_t center)
+void rotate_xpoint(point_t &point, double degree)
 {
-    double radians = to_radians(degree);
-    double cos_r = cos(radians);
-    double sin_r = sin(radians);
-    double y_real = point.y - center.y;
-    double z_real = point.z - center.z;
+    double 
+        radians = to_radians(degree),
+        cos_r = cos(radians),
+        sin_r = sin(radians), 
+        y = point.y,
+        z = point.z;
 
-    point.y = y_real * cos_r - z_real * sin_r + center.y;
-    point.z = z_real * cos_r + y_real * sin_r + center.z;
+    point.y = y * cos_r - z * sin_r;
+    point.z = z * cos_r + y * sin_r;
 }
 
-void rotate_ypoint(point_t &point, double degree, point_t center)
+void rotate_ypoint(point_t &point, double degree)
 {
-    double radians = to_radians(degree);
-    double cos_r = cos(radians);
-    double sin_r = sin(radians);
-    double x_real = point.x - center.x;
-    double z_real = point.z - center.z;
+    double 
+        radians = to_radians(degree),
+        cos_r = cos(radians),
+        sin_r = sin(radians), 
+        x = point.x,
+        z = point.z;
 
-    point.x = x_real * cos_r + z_real * sin_r + center.x;
-    point.z = z_real * cos_r - x_real * sin_r + center.z;
+    point.x = x * cos_r + z * sin_r;
+    point.z = z * cos_r - x * sin_r;
 }
 
-void rotate_zpoint(point_t &point, double degree, point_t center)
+void rotate_zpoint(point_t &point, double degree)
 {
-    double radians = to_radians(degree);
-    double cos_r = cos(radians);
-    double sin_r = sin(radians);
-    double x_real = point.x - center.x;
-    double y_real = point.y - center.y;
+    double 
+        radians = to_radians(degree),
+        cos_r = cos(radians),
+        sin_r = sin(radians), 
+        x = point.x,
+        y = point.y;
 
-    point.x = x_real * cos_r - y_real * sin_r + center.x;
-    point.y = y_real * cos_r + x_real * sin_r + center.y;
+    point.x = x * cos_r - y * sin_r;
+    point.y = y * cos_r + x * sin_r;
 }
 
 int rotate_points(datapoints_t &data, transform_t degrees, point_t center)
@@ -48,31 +65,33 @@ int rotate_points(datapoints_t &data, transform_t degrees, point_t center)
 
     for (int i = 0; i < data.amount; i++)
     {
+        to_center(data.array[i], center);
         if (degrees.kx > EPS)
         {
-            rotate_xpoint(data.array[i], degrees.kx, center);
+            rotate_xpoint(data.array[i], degrees.kx);
         }
         if (degrees.ky > EPS)
         {
-            rotate_ypoint(data.array[i], degrees.ky, center);
+            rotate_ypoint(data.array[i], degrees.ky);
         }
         if (degrees.kz > EPS)
         {
-            rotate_zpoint(data.array[i], degrees.kz, center);
+            rotate_zpoint(data.array[i], degrees.kz);
         }
+        from_center(data.array[i], center);
     }
 
     return OK;
 }
 
-int scale_point(point_t &point, transform_t scale, point_t center)
+int scale_point(point_t &point, transform_t scale)
 {
     if (fabs(scale.kx) < EPS || fabs(scale.ky) < EPS || fabs(scale.kz) < EPS) 
         return SMALL_SCALE_ERROR;
     
-    point.x = (point.x - center.x) * scale.kx + center.x;
-    point.y = (point.y - center.y) * scale.ky + center.y;
-    point.z = (point.z - center.z) * scale.kz + center.z;
+    point.x = point.x * scale.kx;
+    point.y = point.y * scale.ky;
+    point.z = point.z * scale.kz;
     
     return OK;
 }
@@ -84,9 +103,12 @@ int scale_points(datapoints_t &data, transform_t scale, point_t center)
 
     int i = 0,
         error_code = OK;
+
     while (error_code == OK && i < data.amount)
     {
-        error_code = scale_point(data.array[i++], scale, center);
+        to_center(data.array[i], center);
+        error_code = scale_point(data.array[i], scale);
+        from_center(data.array[i++], center);
     }
 
     return error_code;
@@ -176,4 +198,22 @@ int find_center(point_t &center, datapoints_t data)
     center.z = (max_point.z + min_point.z) / 2;
     
     return OK;
+}
+
+int alloc_points(point_t *&array, int amount)
+{
+    void *arr_p = NULL;
+    int error_code = alloc_array(arr_p, amount, sizeof(point_t));
+    array = static_cast<point_t *>(arr_p);
+
+    return error_code;
+}
+
+/*
+    Free's array and set to NULL
+*/
+void free_points(point_t *&points)
+{
+    free_array(static_cast<void *>(points));
+    points = NULL;
 }

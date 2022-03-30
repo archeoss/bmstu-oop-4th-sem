@@ -22,3 +22,21 @@ int check_edges(dataedges_t edges, datapoints_t points)
 
     return error_code;
 }
+
+int alloc_edges(edge_t *&data, int amount)
+{
+    void *arr_p = NULL;
+    int error_code = alloc_array(arr_p, amount, sizeof(edge_t));
+    data = static_cast<edge_t *>(arr_p);
+
+    return error_code;
+}
+
+/*
+    Free's array and set to NULL
+*/
+void free_edges(edge_t *&edges)
+{
+    free_array(static_cast<void *>(edges));
+    edges = NULL;
+}

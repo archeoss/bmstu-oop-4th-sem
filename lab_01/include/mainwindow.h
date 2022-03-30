@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "requests.h"
-#include "figure.h"
 #include "ui_mainwindow.h"
 #include <QMainWindow>
 #include <QGraphicsScene>

@@ -3,7 +3,8 @@
 
 #include "points.h"
 #include "errors.h"
-
+#include "alloc.h"
+#include <stdlib.h>
 #define MIN_LINKS 1
 
 typedef int     type_id;
@@ -23,5 +24,7 @@ typedef struct
 } dataedges_t;
 
 int check_edges(dataedges_t edges, datapoints_t points);
+int alloc_edges(edge_t *&data, int amount);
+void free_edges(edge_t *&);
 
 #endif

@@ -3,10 +3,10 @@
 
 #include "figure.h"
 #include <QGraphicsScene>
-
+typedef QGraphicsScene * scene_t;
 typedef struct
 {
-    QGraphicsScene *scene;
+    scene_t scene;
     double width;
     double height;
 } painter_t;
