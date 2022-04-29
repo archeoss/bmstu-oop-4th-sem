@@ -255,7 +255,7 @@ const T &constSetIter<T>::operator*() const
         time_t t = time(nullptr);
         throw iterator_error(ctime(&t), __FILE__, typeid(*this).name(), __FUNCTION__);
     }
-    return this->ptrCur.lock()->value();
+    return this->ptrCur.lock()->get();
 }
 
 template <typename T>

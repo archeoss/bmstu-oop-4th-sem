@@ -79,12 +79,6 @@ const T &set_node<T>::get()
 }
 
 template <typename T>
-T &set_node<T>::value()
-{
-    return this->data;
-}
-
-template <typename T>
 std::shared_ptr<set_node<T>> set_node<T>::get_next()
 {
     return this->next;
