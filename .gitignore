@@ -109,3 +109,4 @@ Thumbs.db
 .vscode
 build*
 cmake-build-debug
+.idea
