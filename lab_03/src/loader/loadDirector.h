@@ -6,7 +6,7 @@
 #define OOP_LAB_03_LOADDIRECTOR_H
 
 #include <memory>
-#include "baseLoader.h"
+#include "modelBuilder.h"
 #include "baseModelBuilder.h"
 #include "fileLoader.h"
 class LoadDirector
@@ -15,11 +15,11 @@ public:
     LoadDirector() = default;
     ~LoadDirector() = default;
 
-    void setBuilder(std::shared_ptr<BaseModelBuilder> &bld);
+    void setBuilder(std::shared_ptr<ModelBuilder> &bld);
 
-    std::shared_ptr<Model> buildModel(std::string &fileName);
+    std::shared_ptr<Model> buildModel();
 private:
-    std::shared_ptr<BaseModelBuilder> builder;
+    std::shared_ptr<ModelBuilder> builder;
 };
 
 

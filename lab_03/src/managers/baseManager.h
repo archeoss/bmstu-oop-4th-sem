@@ -5,6 +5,7 @@
 #ifndef BMSTU_OOP_4TH_SEM_BASEMANAGER_H
 #define BMSTU_OOP_4TH_SEM_BASEMANAGER_H
 
+#include <ctime>
 
 class BaseManager
 {

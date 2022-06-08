@@ -13,7 +13,21 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
-#add_compile_options(
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_C_COMPILER clang++)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC_SEARCH_PATHS
+        design
+        )
+
+# Make an automatic library - will be static or dynamic based on user setting
+QT6_WRAP_UI(
+        ${DRAWER_DOMAIN} design/mainwindow.ui)
+add_compile_options(-Wno-everything)
 #    -Werror
 #
 #    -Wall
@@ -66,7 +80,7 @@ set(OBJECTS_SRC
 set(FACADE_DOMAIN src/command/)
 set(FACADE_SRC
         ${FACADE_DOMAIN}/command.h
-        ${FACADE_DOMAIN}/facade.cpp
+        ${FACADE_DOMAIN}/facade.hpp
         ${FACADE_DOMAIN}/facade.h)
 
 set(VECTOR_DOMAIN src/vector)
@@ -112,7 +126,9 @@ set(LOADER_SRC
         ${LOADER_DOMAIN}/baseModelBuilder.h
         ${LOADER_DOMAIN}/loader.h
         ${LOADER_DOMAIN}/loadManager.cpp
-        ${LOADER_DOMAIN}/loadManager.h)
+        ${LOADER_DOMAIN}/loadManager.h
+        ${LOADER_DOMAIN}/builderFactory.cpp
+        ${LOADER_DOMAIN}/builderFactory.h)
 
 set(EXCEPTION_DOMAIN src/exceptions)
 set(EXCEPTION_SRC
@@ -173,21 +189,6 @@ add_executable(lab_03
 #
 #
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_C_COMPILER clang++)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(CMAKE_AUTOUIC_SEARCH_PATHS
-        ui
-        )
-
-# Make an automatic library - will be static or dynamic based on user setting
-QT6_WRAP_UI(
-        ${DRAWER_DOMAIN} design/mainwindow.ui)
 #add_library(main_library SHARED src/requests.cpp src/events.cpp src/mainwindow.cpp src/figure/figure.cpp src/io.cpp src/alloc.cpp src/edges.cpp src/draw.cpp src/errors.cpp src/points.cpp src/backup.cpp ${HEADER_LIST} ${UI_HEADERS})
 #target_include_directories(main_library PUBLIC ./include)
 #target_link_libraries(main_library PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

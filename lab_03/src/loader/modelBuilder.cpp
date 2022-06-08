@@ -8,34 +8,36 @@ void ModelBuilder::addPoints(const Vector<Point> &points)
 {
     for (auto &point: points)
     {
-        model->addPoint(point);
+        this->points.push(point);
     }
-}
-
-void ModelBuilder::setLdr(std::shared_ptr<BaseLoader> &ldr)
-{
-    loader = std::move(ldr);
 }
 
 void ModelBuilder::addEdges(const Vector<Edge> &edges)
 {
     for (auto &edge: edges)
     {
-        model->addEdge(edge);
+        this->edges.push(edge);
     }
 }
 
 void ModelBuilder::addPoint(float x, float y, float z)
 {
-    model->addPoint(Point(x, y ,z));
+    this->points.push(Point(x, y ,z));
 }
 
 void ModelBuilder::addEdge(size_t idPointA, size_t idPointB)
 {
-    model->addEdge(Edge(idPointA, idPointB));
+    this->edges.push(Edge(idPointA, idPointB));
 }
 
 std::shared_ptr<Model> ModelBuilder::buildModel()
 {
-    return model;
+    addPoints(loader->readPoints());
+    addEdges(loader->readEdges());
+    return std::make_shared<Model>(points, edges);
+}
+
+ModelBuilder::ModelBuilder(std::unique_ptr<BaseLoader> ldr)
+{
+    loader = std::move(ldr);
 }

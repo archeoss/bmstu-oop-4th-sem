@@ -8,30 +8,28 @@
 #include "visibleObject.h"
 #include "vector.h"
 #include "figure.h"
+#include "visitor.h"
 
-class BaseModel : VisibleObject
+class BaseModel : public VisibleObject
 {
 public:
     BaseModel() = default;
-    virtual void accept() = 0;
-    ~BaseModel() override = default;
+    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
+    
+    virtual ~BaseModel() = default;
 };
 
-class Model : BaseModel
+class Model : public BaseModel
 {
 public:
     Model();
     explicit Model(const std::shared_ptr<Figure>& fig);
+    Model(Vector<Point> &points, Vector<Edge> &edges);
     Model(const Model &model);
 
-    std::unique_ptr<Model> clone();
-
-    void addPoint(const Point &point);
-    void addEdge(const Edge &edge);
-
     void transform(const Point &move, const Point &scale, const Point &rotate) override;
-    void accept() override;
-
+    void accept(std::shared_ptr<Visitor> visitor) override;
+    bool isVisible() override { return true; };
     std::shared_ptr<Figure> getFigure() const;
 
     ~Model() override = default;

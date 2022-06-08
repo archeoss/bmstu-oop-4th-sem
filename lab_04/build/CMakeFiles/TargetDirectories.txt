@@ -1,0 +1,5 @@
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build/CMakeFiles/lab_04.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build/CMakeFiles/edit_cache.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build/CMakeFiles/rebuild_cache.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build/CMakeFiles/lab_04_autogen_timestamp_deps.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build/CMakeFiles/lab_04_autogen.dir

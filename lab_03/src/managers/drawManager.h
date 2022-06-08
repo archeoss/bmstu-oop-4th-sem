@@ -6,6 +6,7 @@
 #define OOP_LAB_03_DRAWMANAGER_H
 
 #include <memory>
+#include "camera.h"
 #include "visitor.h"
 #include "baseManager.h"
 #include "point.h"

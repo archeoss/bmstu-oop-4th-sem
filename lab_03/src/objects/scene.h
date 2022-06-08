@@ -7,6 +7,7 @@
 
 #include <memory>
 #include "composite.h"
+#include "vector.h"
 
 class Scene
 {
@@ -15,6 +16,7 @@ public:
     ~Scene() = default;
 
     void addObj(std::shared_ptr<Object> obj);
+//    void addObj(std::shared_ptr<Model> obj);
     void removeObj(const size_t index);
 
     std::shared_ptr<Composite> getObjs();

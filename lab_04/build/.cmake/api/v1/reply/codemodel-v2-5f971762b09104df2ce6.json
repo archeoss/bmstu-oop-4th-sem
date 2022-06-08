@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "OOP_Lab_04",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_04::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_04-Debug-b0ca137857833f837e2f.json",
+					"name" : "lab_04",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_04_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_04_autogen-Debug-356ba89ffee013cab61b.json",
+					"name" : "lab_04_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_04_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_04_autogen_timestamp_deps-Debug-f0d01aedac0b14fc4d06.json",
+					"name" : "lab_04_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04/build",
+		"source" : "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_04"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

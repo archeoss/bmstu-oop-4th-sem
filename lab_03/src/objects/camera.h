@@ -17,8 +17,9 @@ public:
     Camera &operator=(Camera &cam);
     Camera(Camera &cam);
     void transform(const Point &move, const Point &scale, const Point &rotate) override;
-
+    bool isVisible() override {return true;};
     Point getPos();
+    void accept(std::shared_ptr<Visitor> visitor) override;
     ~Camera() override = default;
 private:
     Point curPos;

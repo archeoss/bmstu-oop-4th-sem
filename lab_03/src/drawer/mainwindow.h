@@ -5,12 +5,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <string>
+#include <math.h>
+#include <fstream>
+#include <QFileDialog>
+#include <memory>
 #include <iostream>
 #include <QMainWindow>
 #include <QMessageBox>
 
 #include "facade.h"
-#include "command.h"
 //#include "../errors/camera_error.h"
 //#include "../errors/model_error.h"
 #include "ui_mainwindow.h"
@@ -21,12 +25,6 @@
 #include "command.h"
 #include "transformManager.h"
 
-#include <math.h>
-
-#include <QFileDialog>
-#include <QMainWindow>
-#include <QMessageBox>
-#include <memory>
 
 namespace Ui
 {
@@ -55,15 +53,11 @@ public:
     };
 
 private slots:
-    void on_move_button_clicked();
-
-    void on_scale_button_clicked();
-
     void on_pushButton_AddModel_clicked();
 
     void on_pushButton_AddCamera_clicked();
 
-    void on_pushButton_SetCamera_clicked();
+    void on_pushButton_SetCamera_clicked(){};
 
     void on_pushButton_RemoveCamera_clicked();
 
@@ -75,9 +69,9 @@ private slots:
 
     void on_pushButton_rotateModel_clicked();
 
-    void on_pushButton_moveCamera_clicked();
+    void on_pushButton_moveCamera_clicked(){};
 
-    void on_pushButton_rotateCamera_clicked();
+    void on_pushButton_rotateCamera_clicked(){};
 
 private:
     Ui::MainWindow *ui;

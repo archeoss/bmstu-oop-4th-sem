@@ -7,13 +7,14 @@
 
 #include "object.h"
 
+//class Object;
 class VisibleObject : public Object
 {
 public:
     VisibleObject() = default;
-    ~VisibleObject() override = default;
+    virtual ~VisibleObject() = default;
 
-    virtual bool is_visible() { return true;};
+    virtual bool isVisible() { return true;};
 };
 
 #endif //OOP_LAB_03_VISIBLEOBJECT_H

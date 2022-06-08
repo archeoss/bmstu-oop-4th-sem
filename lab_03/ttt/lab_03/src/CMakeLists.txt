@@ -1,0 +1,29 @@
+file(GLOB LOCAL_SOURCE
+	"build_stuff/*.*"
+	"commands/*.*"
+        "containers/iterator/*.*"
+        "containers/matrix/*.*"
+        "containers/pair/*.*"
+        "containers/vector/iterator/*.*"
+        "containers/vector/*.*"
+	"controller/*.*"
+	"draw/*.*"
+	"exceptions/*.*"
+	"facade/*.*"
+	"gui/*.*"
+	"load/*.*"
+        "managers/*.*"
+        "math3d/*.*"
+        "objects/camera/*.*"
+        "objects/composite/*.*"
+        "objects/model/*.*"
+        "objects/*.*"
+        "scene/*.*"
+        "*.cpp"
+)
+
+set(LAB_SRC
+	${LAB_SRC}
+	${LOCAL_SOURCE}
+	PARENT_SCOPE
+	)

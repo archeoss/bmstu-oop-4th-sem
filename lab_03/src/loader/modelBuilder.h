@@ -11,6 +11,7 @@ class ModelBuilder : public BaseModelBuilder
 {
 public:
     ModelBuilder() = default;
+    ModelBuilder(std::unique_ptr<BaseLoader> ldr);
     ~ModelBuilder() override = default;
 
     void addPoints(const Vector<Point> &points) override;
@@ -19,10 +20,10 @@ public:
     void addPoint(float x, float y, float z) override;
     void addEdge(size_t idPointA, size_t idPointB) override;
 
-    void setLdr(std::shared_ptr<BaseLoader> &ldr) override;
     std::shared_ptr<Model> buildModel() override;
 private:
-    std::shared_ptr<Model> model;
+    Vector<Point> points;
+    Vector<Edge> edges;
     std::shared_ptr<BaseLoader> loader;
 };
 

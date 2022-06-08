@@ -3,12 +3,12 @@
 //
 
 #include "modelLoader.h"
-
+#include "builderFactory.h"
 std::shared_ptr<Model> ModelLoader::load(std::string fileName)
 {
     auto director = LoadDirector();
-    std::shared_ptr<BaseModelBuilder> builder(new ModelBuilder);
+    auto builder = std::make_shared<ModelBuilder>(BuilderFactory::create(fileName));
     director.setBuilder(builder);
 
-    return director.buildModel(fileName);
+    return director.buildModel();
 }

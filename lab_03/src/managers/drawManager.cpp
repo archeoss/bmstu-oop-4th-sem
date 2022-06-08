@@ -3,20 +3,22 @@
 //
 
 #include "drawManager.h"
-
+#include "drawException.h"
+#include "sceneException.h"
+#include "model.h"
 void DrawManager::visit(const Model &model)
 {
     auto points = model.getFigure()->getPoints();
 
-//    time_t t_time = time(NULL);
-//    if (!drawer)
-//    {
-//        throw DrawerError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
-//    }
-//    if (!camera)
-//    {
-//        throw CameraError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
-//    }
+    time_t t_time = time(NULL);
+    if (!drawer)
+    {
+        throw DrawerError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+    if (!camera)
+    {
+        throw CameraError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
 
     for (auto edge: model.getFigure()->getEdges())
     {

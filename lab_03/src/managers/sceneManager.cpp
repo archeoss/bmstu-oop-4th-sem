@@ -40,3 +40,13 @@ void SceneManager::nextCam()
     }
     setCam(curId);
 }
+
+void SceneManager::removeObj(size_t id)
+{
+    scene->removeObj(id);
+}
+
+void SceneManager::removeCam(size_t id)
+{
+    scene->removeCamera(id);
+}

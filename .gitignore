@@ -107,6 +107,6 @@ Thumbs.db
 
 # Stuff
 .vscode
-build*
+build-*
 cmake-build-debug
 .idea

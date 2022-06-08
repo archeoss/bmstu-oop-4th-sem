@@ -9,7 +9,7 @@
 #include "object.h"
 #include "visitor.h"
 using Component = std::shared_ptr<Object>;
-class Composite
+class Composite : public Object
 {
 public:
     Composite() = default;
@@ -18,8 +18,8 @@ public:
 
     size_t size() const;
 
-    void addObj(Component &obj);
-    void removeObj(Iterator<Object> &iter);
+    bool add(Component &obj);
+    bool remove(Iterator<Object> &iter);
 
     Vector<Component> &getObjs();
 

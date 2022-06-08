@@ -1,0 +1,3 @@
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/build/CMakeFiles/lab_02.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/build/CMakeFiles/edit_cache.dir
+/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/build/CMakeFiles/rebuild_cache.dir

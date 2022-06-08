@@ -27,3 +27,13 @@ Camera &Camera::operator=(Camera &cam)
     return *this;
 }
 
+Point Camera::getPos()
+{
+    return curPos;
+}
+
+void Camera::accept(std::shared_ptr<Visitor> visitor)
+{
+
+}
+

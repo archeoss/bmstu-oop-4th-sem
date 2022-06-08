@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/build",
+  "command": "/usr/bin/clang++ -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/node -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/iter -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/tests -g -Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-promo -std=gnu++11 -o CMakeFiles/lab_02.dir/src/main.cpp.o -c /home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/main.cpp",
+  "file": "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/main.cpp"
+},
+{
+  "directory": "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/build",
+  "command": "/usr/bin/clang++ -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/node -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/iter -I/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/tests -g -Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-promo -std=gnu++11 -o CMakeFiles/lab_02.dir/src/set/container.cpp.o -c /home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/container.cpp",
+  "file": "/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_02/src/set/container.cpp"
+}
+]

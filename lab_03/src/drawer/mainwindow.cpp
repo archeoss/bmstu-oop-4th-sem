@@ -113,8 +113,10 @@ void MainWindow::render()
         throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    std::shared_ptr<BaseCommand> command(new DrawCommand(drawer));
-    facade_viewer->RunCommand(command);
+
+    auto res = std::make_shared<RemoveModelCommand<SceneManager>>(&SceneManager::removeObj, 0);
+    std::shared_ptr<BaseCommand<SceneManager>> cmd = res;
+    facade->execute(cmd, std::make_shared<SceneManager>(facade->_sceneMan));
 
     ui->graphicsView->setScene(this->scene_view.get());
 }
@@ -162,14 +164,22 @@ void MainWindow::on_pushButton_AddModel_clicked()
         return;
     }
 
-    std::string model_name = std::string("model_") + std::to_string(++index_model);
     std::string file_name = file.toLocal8Bit().constData();
 
     try
     {
-        auto res = std::make_shared<loadModelCommand<TransformManager>>(&TransformManager::moveObj, obj, x, y, z);
-        std::shared_ptr<BaseCommand<TransformManager>> cmd = res;
-        facade->execute(cmd, std::make_shared<TransformManager>(facade->_tranMan));
+        auto res = std::make_shared<LoadModelCommand<LoadManager>>(&LoadManager::loadModel, file_name);
+        std::shared_ptr<BaseCommand<LoadManager>> cmd = res;
+        facade->execute(cmd, std::make_shared<LoadManager>(facade->_loadMan));
+        std::shared_ptr<VisibleObject> mod = res->result();
+
+        std::shared_ptr<Scene> sc;
+        getScene(sc);
+
+        auto res_b = std::make_shared<addModelCommand<Scene>>(&Scene::addObj, mod);
+        std::shared_ptr<BaseCommand<Scene>> cmd_b = res_b;
+        facade->execute(cmd_b, sc);
+
         render();
     }
     catch (DefaultException &ex)
@@ -178,24 +188,6 @@ void MainWindow::on_pushButton_AddModel_clicked()
     }
 }
 
-void MainWindow::on_pushButton_SetCamera_clicked()
-{
-    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
-    try
-    {
-        std::shared_ptr<BaseCommand> command(new SetCameraCommand(cam_name));
-        facade_viewer->RunCommand(command);
-
-        if (ui->comboBoxCamera->count() > 0)
-        {
-            render();
-        }
-    }
-    catch (DefaultException &ex)
-    {
-        QMessageBox::warning(this, "Error message", QString(ex.what()));
-    }
-}
 
 void MainWindow::on_pushButton_moveModel_clicked()
 {
@@ -305,60 +297,6 @@ std::string MainWindow::readConfigFile(const char *filename)
     return dev_file;
 }
 
-void MainWindow::on_pushButton_moveCamera_clicked()
-{
-    if (ui->comboBoxModel->count() == 0)
-    {
-        return;
-    }
-
-    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
-    double x = ui->doubleSpinBoxDx_c->value();
-    double y = ui->doubleSpinBoxDy_c->value();
-    double z = ui->doubleSpinBoxDz_c->value();
-
-    try
-    {
-        Point<double> moving(x, y, z);
-        Point<double> rotateing(0, 0, 0);
-        std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
-        facade_viewer->RunCommand(command);
-    }
-    catch (DefaultException &ex)
-    {
-        QMessageBox::warning(this, "Error message", QString(ex.what()));
-    }
-
-    render();
-}
-
-void MainWindow::on_pushButton_rotateCamera_clicked()
-{
-    if (ui->comboBoxModel->count() == 0)
-    {
-        return;
-    }
-
-    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
-    double angle_x = ui->doubleSpinBoxOx_c->value();
-    double angle_y = ui->doubleSpinBoxOy_c->value();
-    double angle_z = ui->doubleSpinBoxOz_c->value();
-
-    try
-    {
-        Point<double> moving(0, 0, 0);
-        Point<double> rotateing(angle_x, angle_y, angle_z);
-        std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
-        facade_viewer->RunCommand(command);
-    }
-    catch (DefaultException &ex)
-    {
-        QMessageBox::warning(this, "Error message", QString(ex.what()));
-    }
-
-    render();
-}
-
 void MainWindow::on_pushButton_RemoveCamera_clicked()
 {
     if (ui->comboBoxCamera->count() == 0)
@@ -367,10 +305,11 @@ void MainWindow::on_pushButton_RemoveCamera_clicked()
     }
     try
     {
-        std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
-        std::shared_ptr<BaseCommand> command(new RemoveCameraCommand(cam_name));
-        facade_viewer->RunCommand(command);
-        ui->comboBoxCamera->removeItem(ui->comboBoxCamera->currentIndex());
+//        std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
+        auto res = std::make_shared<RemoveCameraCommand<SceneManager>>(&SceneManager::removeCam, 0);
+        std::shared_ptr<BaseCommand<SceneManager>> cmd = res;
+        facade->execute(cmd, std::make_shared<SceneManager>(facade->_sceneMan));
+//        ui->comboBoxCamera->removeItem(ui->comboBoxCamera->currentIndex());
         if (ui->comboBoxCamera->count() == 0)
         {
             QMessageBox::information(nullptr, "Warning", "Choose camera to render");
@@ -396,10 +335,12 @@ void MainWindow::on_pushButton_RemoveModel_clicked()
 
     try
     {
-        std::string model_name = ui->comboBoxModel->currentText().toStdString();
-        std::shared_ptr<BaseCommand> command(new RemoveModelCommand(model_name));
-        facade_viewer->RunCommand(command);
-        ui->comboBoxModel->removeItem(ui->comboBoxModel->currentIndex());
+//        std::string model_name = ui->comboBoxModel->currentText().toStdString();
+
+        auto res = std::make_shared<RemoveModelCommand<SceneManager>>(&SceneManager::removeObj, 0);
+        std::shared_ptr<BaseCommand<SceneManager>> cmd = res;
+        facade->execute(cmd, std::make_shared<SceneManager>(facade->_sceneMan));
+//        ui->comboBoxModel->removeItem(ui->comboBoxModel->currentIndex());
         if (ui->comboBoxCamera->count() == 0)
         {
             QMessageBox::information(nullptr, "Warning", "Choose camera to render");
@@ -429,9 +370,8 @@ std::shared_ptr<BaseDrawer> MainWindow::DrawDirector::get_drawer(const char *fp,
     {
         this->_scene_view->clear();
         f = std::make_shared<QtFactory>();
-        auto drawer = f->CreateUi();
-        drawer->setCanvas(std::make_shared<QtCanvas>(this->_scene_view));
-
+        auto drawer = f->createGraphics();
+//        drawer->setCanvas(std::make_shared<QtCanvas>(this->_scene_view));
         return drawer;
     }
 

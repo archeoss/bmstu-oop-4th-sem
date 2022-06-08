@@ -58,7 +58,7 @@ void Figure::transform(const Point &move, const Point &scale, const Point &rotat
             elem *= scale;
         }
     }
-
+    float
     x = rotate.getX(),
     y = rotate.getY(),
     z = rotate.getZ();

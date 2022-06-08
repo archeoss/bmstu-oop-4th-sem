@@ -8,15 +8,16 @@
 #include "baseManager.h"
 #include "object.h"
 #include "loader.h"
+#include "modelLoader.h"
 class LoadManager : public BaseManager
 {
 public:
     LoadManager() = default;
     ~LoadManager() override = default;
-    std::shared_ptr<Object> loadModel(std::string &name);
-    void setLoader(std::shared_ptr<Loader<Object>> _loader);
+    std::shared_ptr<Model> loadModel(std::string &name);
+    void setLoader(std::shared_ptr<ModelLoader> _loader);
 private:
-    std::shared_ptr<Loader<Object>> loader;
+    std::shared_ptr<ModelLoader> loader;
 };
 
 

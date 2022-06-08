@@ -145,30 +145,32 @@ public:
 };
 
 template <typename Receiver>
-class loadModelCommand : public BaseCommand<Receiver>
+class LoadModelCommand : public BaseCommand<Receiver>
 {
-    using Action = void(Receiver::*)(std::string src);
+    using Action = std::shared_ptr<Model> (Receiver::*)(std::string &src);
 private:
     Action act;
     std::string fileName;
+    std::shared_ptr<Model> obj;
 public:
-    explicit loadModelCommand(Action a, std::string src) : act(a)
+    explicit LoadModelCommand(Action a, std::string &src) : act(a)
     {
         fileName = src;
     }
 
-    void execute(std::shared_ptr<Receiver> r) override { ((*r).*act)(fileName); }
+    std::shared_ptr<Model> result() { return obj; }
+    void execute(std::shared_ptr<Receiver> r) override { obj = ((*r).*act)(fileName); }
 };
 
 template <typename Receiver>
 class addModelCommand : public BaseCommand<Receiver>
 {
-    using Action = void(Receiver::*)(std::shared_ptr<Model> &obj);
+    using Action = void(Receiver::*)(std::shared_ptr<Object> obj);
 private:
     Action act;
-    std::shared_ptr<Model> object;
+    std::shared_ptr<Object> object;
 public:
-    explicit addModelCommand(Action a, std::shared_ptr<Model> &obj) : act(a)
+    explicit addModelCommand(Action a, std::shared_ptr<Object> obj) : act(a)
     {
         object = obj;
     }
@@ -177,14 +179,14 @@ public:
 };
 
 template <typename Receiver>
-class removeModelCommand : public BaseCommand<Receiver>
+class RemoveModelCommand : public BaseCommand<Receiver>
 {
     using Action = void(Receiver::*)(const size_t id);
 private:
     Action act;
     size_t idToDelete;
 public:
-    explicit removeModelCommand(Action a, size_t id) : act(a)
+    explicit RemoveModelCommand(Action a, size_t id) : act(a)
     {
         idToDelete = id;
     }
@@ -207,14 +209,14 @@ public:
 };
 
 template <typename Receiver>
-class removeCameraCommand : public BaseCommand<Receiver>
+class RemoveCameraCommand : public BaseCommand<Receiver>
 {
     using Action = void(Receiver::*)(const size_t id);
 private:
     Action act;
     size_t idToDelete;
 public:
-    explicit removeCameraCommand(Action a, size_t id) : act(a)
+    explicit RemoveCameraCommand(Action a, size_t id) : act(a)
     {
         idToDelete = id;
     }

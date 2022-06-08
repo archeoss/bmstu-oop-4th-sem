@@ -15,12 +15,12 @@ size_t Composite::size() const
     return objects.getSize();
 }
 
-void Composite::addObj(Component &obj)
+bool Composite::add(Component &obj)
 {
     objects.push(obj);
 }
 
-void Composite::removeObj(Iterator<Object> &iter)
+bool Composite::remove(Iterator<Object> &iter)
 {
 //    objects.
 }
@@ -41,7 +41,12 @@ Iterator<Component> Composite::end()
 }
 
 void Composite::accept(std::shared_ptr<Visitor> &visitor)
-{}
+{
+    for (auto obj: objects)
+    {
+        obj->accept(visitor);
+    }
+}
 
 void Composite::transform(const Point &move, const Point &scale, const Point &turn)
 {

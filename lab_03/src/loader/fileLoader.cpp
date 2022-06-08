@@ -3,6 +3,7 @@
 //
 
 #include "fileLoader.h"
+#include "loadException.h"
 
 FileLoader::~FileLoader()
 {
@@ -20,7 +21,7 @@ void FileLoader::open(std::string fileName)
     stream.open(fileName);
     if (!stream)
     {
-        //throw
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
     }
 }
 
@@ -41,7 +42,7 @@ Vector<Point> FileLoader::readPoints()
 
     if (!isOpen())
     {
-        //throw
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
     }
 
     size_t countPoints;
@@ -49,7 +50,7 @@ Vector<Point> FileLoader::readPoints()
 
     if (countPoints < 1)
     {
-//        throw
+        throw ReadStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
     }
 
     Vector<Point> points(countPoints);
@@ -58,7 +59,7 @@ Vector<Point> FileLoader::readPoints()
         float x, y, z;
         if (!(stream >> x >> y >> z))
         {
-            // throw
+            throw ReadStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
         }
         points.push(Point(x, y, z));
     }
@@ -73,7 +74,7 @@ Vector<Edge> FileLoader::readEdges()
 
     if (!isOpen())
     {
-        //throw
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
     }
 
     size_t countEdges;
@@ -81,7 +82,7 @@ Vector<Edge> FileLoader::readEdges()
 
     if (countEdges < 1)
     {
-//        throw
+        throw ReadStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
     }
 
     Vector<Edge> edges(countEdges);
@@ -90,11 +91,19 @@ Vector<Edge> FileLoader::readEdges()
         size_t idA, idB;
         if (!(stream >> idA >> idB))
         {
-            // throw
+            throw ReadStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
         }
         edges.push(Edge(idA, idB));
     }
 
     return edges;
+}
+
+FileLoader::FileLoader(std::string &path)
+{
+    time_t t = time(nullptr);
+    stream = std::ifstream(path);
+    if (stream.fail())
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t));
 }
 

@@ -29,7 +29,6 @@ public:
             const std::string &info = "Out of range error") : BaseException(filename, classname, line, time, info) {}
 };
 
-#endif
 
 
 #endif //OOP_LAB_03_CONTAINEREXCEPTION_H

@@ -5,12 +5,12 @@
 #ifndef OOP_LAB_03_MODELLOADER_H
 #define OOP_LAB_03_MODELLOADER_H
 
+#include <string>
+#include <memory>
 #include "modelBuilder.h"
 #include "fileLoader.h"
 #include "loader.h"
 #include "loadDirector.h"
-
-#include <memory>
 #include "loadDirector.h"
 
 class ModelLoader : public Loader<Model>

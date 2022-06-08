@@ -14,7 +14,7 @@ void Scene::addObj(std::shared_ptr<Object> obj)
 
 void Scene::removeObj(const size_t index)
 {
-//    models->removeObj(models->begin() + index);
+    models->removeObj(models->begin() + index);
 }
 
 std::shared_ptr<Composite> Scene::getObjs()
@@ -37,7 +37,7 @@ void Scene::addCamera(std::shared_ptr<Camera> camera)
 
 void Scene::removeCamera(const size_t index)
 {
-    this->cams.remove(index);
+//    this->cams.remove(index);
 }
 
 Vector<std::shared_ptr<Camera>> Scene::getCams()

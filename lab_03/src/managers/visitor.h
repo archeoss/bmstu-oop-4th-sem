@@ -5,11 +5,12 @@
 #ifndef OOP_LAB_03_VISITOR_H
 #define OOP_LAB_03_VISITOR_H
 
-#include "camera.h"
-#include "model.h"
+//#include "camera.h"
+//#include "model.h"
 //#include "composite.h"
+class Camera;
+class Model;
 class Composite;
-
 class Visitor
 {
 public:

@@ -27,17 +27,22 @@ std::unique_ptr<Model> Model::clone()
     return std::make_unique<Model>(*this);
 }
 
-void Model::addPoint(const Point &point)
-{
-    this->figure->addPoint(point);
-}
-
-void Model::addEdge(const Edge &edge)
-{
-    this->figure->addEdge(edge);
-}
-
 void Model::transform(const Point &move, const Point &scale, const Point &rotate)
 {
     this->figure->transform(move, scale, rotate);
+}
+
+Model::Model(Vector<Point> &points, Vector<Edge> &edges)
+{
+    figure = std::make_shared<Figure>(points, edges);
+}
+
+void Model::accept(std::shared_ptr<Visitor> visitor)
+{
+    visitor->visit(*this);
+}
+
+Model::Model(Model &model)
+{
+    this->figure = model.getFigure();
 }

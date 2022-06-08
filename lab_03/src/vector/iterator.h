@@ -6,7 +6,6 @@
 #define OOP_LAB_01_ITERATOR_H
 
 #include <memory>
-#include "vector.h"
 
 template<class T>
 class Vector;

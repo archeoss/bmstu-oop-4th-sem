@@ -18,6 +18,8 @@ public:
     std::shared_ptr<Scene> getScene();
     std::shared_ptr<Camera> getCam();
 
+    void removeObj(size_t id);
+    void removeCam(size_t id);
     void setScene(std::shared_ptr<Scene> &scn);
     void setCam(size_t camId);
     void nextCam();

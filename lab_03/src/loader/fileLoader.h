@@ -12,6 +12,7 @@ class FileLoader : public BaseLoader
 {
 public:
     FileLoader() = default;
+    explicit FileLoader(std::string &path);
     ~FileLoader() override;
 
     void open(std::string fileName) override;

@@ -11,9 +11,10 @@
 #include "drawManager.h"
 #include "sceneManager.h"
 #include "transformManager.h"
+#include "loadManager.h"
 #include <memory>
 #include <cstdlib>
-
+#include "modelLoader.h"
 class Facade
 {
 public:
@@ -21,7 +22,11 @@ public:
     DrawManager     _drawMan;
     SceneManager    _sceneMan;
     TransformManager _tranMan;
-    Facade() = default;
+    LoadManager     _loadMan;
+    Facade() : _camMan(), _drawMan(), _sceneMan(), _tranMan(), _loadMan()
+    {
+        _loadMan.setLoader(std::make_shared<ModelLoader>());
+    };
 
     static std::shared_ptr<Facade> instance()
     {
@@ -36,5 +41,6 @@ public:
     ~Facade() = default;
 };
 
+#include "facade.hpp"
 
 #endif //BMSTU_OOP_4TH_SEM_FACADE_H

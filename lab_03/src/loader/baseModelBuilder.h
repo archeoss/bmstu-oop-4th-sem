@@ -10,6 +10,7 @@
 #include "edge.h"
 #include "model.h"
 #include "baseLoader.h"
+#include <memory>
 
 class BaseModelBuilder
 {
@@ -23,7 +24,6 @@ public:
     virtual void addEdge(size_t idPointA, size_t idPointB) = 0;
     virtual std::shared_ptr<Model> buildModel() = 0;
 
-    virtual void setLdr(std::shared_ptr<BaseLoader> &ldr) = 0;
 };
 
 
