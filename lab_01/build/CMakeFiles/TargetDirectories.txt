@@ -1,6 +1,0 @@
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/main_library.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/lab_01.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/edit_cache.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/rebuild_cache.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/main_library_autogen.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build/CMakeFiles/lab_01_autogen.dir

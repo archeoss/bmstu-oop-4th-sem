@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lab_01.dir/lab_01_autogen/mocs_compilation.cpp.o CMakeFiles/lab_01.dir/src/main.cpp.o -o lab_01  -Wl,-rpath,/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_01/build libmain_library.so /usr/lib/libQt6Widgets.so.6.2.4 /usr/lib/libQt6Gui.so.6.2.4 /usr/lib/libQt6Core.so.6.2.4 /usr/lib/libGLX.so /usr/lib/libOpenGL.so 

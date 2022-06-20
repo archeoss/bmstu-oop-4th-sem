@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lab_02.dir/src/main.cpp.o CMakeFiles/lab_02.dir/src/set/container.cpp.o -o lab_02 
