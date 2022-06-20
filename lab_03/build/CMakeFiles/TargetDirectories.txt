@@ -1,4 +1,0 @@
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_03/build/CMakeFiles/lab_03.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_03/build/CMakeFiles/edit_cache.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_03/build/CMakeFiles/rebuild_cache.dir
-/home/crypto_samurai/github-archeos/bmstu-oop-4th-sem/lab_03/build/CMakeFiles/lab_03_autogen.dir
