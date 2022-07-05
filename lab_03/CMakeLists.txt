@@ -5,8 +5,8 @@ project(
 )
 cmake_minimum_required(VERSION 3.5)
 
-set(QT_DIR "C:\\Qt\\6.2.4\\mingw_64\\lib\\cmake\\Qt6")
-set(CMAKE_PREFIX_PATH "C:\\Qt\\6.2.4\\mingw_64\\")
+#set(QT_DIR "C:\\Qt\\6.2.4\\mingw_64\\lib\\cmake\\Qt6")
+#set(CMAKE_PREFIX_PATH "C:\\Qt\\6.2.4\\mingw_64\\")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
@@ -27,7 +27,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
 # Make an automatic library - will be static or dynamic based on user setting
 QT6_WRAP_UI(
         ${DRAWER_DOMAIN} design/mainwindow.ui)
-add_compile_options(-Wno-everything)
+#add_compile_options(#-Wno-everything)
 #    -Werror
 #
 #    -Wall

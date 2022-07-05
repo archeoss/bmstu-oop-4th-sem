@@ -9,12 +9,12 @@ Scene::Scene() : models(new Composite)
 
 void Scene::addObj(std::shared_ptr<Object> obj)
 {
-    models->addObj(obj);
+    models->add(obj);
 }
 
 void Scene::removeObj(const size_t index)
 {
-    models->removeObj(models->begin() + index);
+    models->remove(models->begin() + index);
 }
 
 std::shared_ptr<Composite> Scene::getObjs()

@@ -6,9 +6,34 @@
 #include "object.h"
 
 template<class T>
+Iterator<T>::Iterator()
+{
+    this->ptr = std::weak_ptr<T[]>();
+    this->currentIndex = 0;
+    this->vectorSize = 0;
+}
+
+template<class T>
+Iterator<T>::Iterator(Iterator<T> &iter)
+{
+    this->ptr = iter.getCur();
+    this->currentIndex = iter.currentIndex;
+    this->vectorSize = iter.vectorSize;
+}
+
+template<class T>
+Iterator<T>::Iterator(Vector<T> &vector)
+{
+    this->currentIndex = 0;
+    this->vectorSize = vector.getSize();
+    this->ptr = vector.getValue();
+}
+
+
+template<class T>
 Iterator<T>::Iterator(const Iterator<T> &iter)
 {
-    this->ptr = iter.ptr;
+    this->ptr = iter.getCur();
     this->currentIndex = iter.currentIndex;
     this->vectorSize = iter.vectorSize;
 }
@@ -18,7 +43,7 @@ Iterator<T>::Iterator(const Vector<T> &vector)
 {
     this->currentIndex = 0;
     this->vectorSize = vector.getSize();
-    this->ptr = vector.value;
+    this->ptr = vector.getValue();
 }
 
 template<class T>
@@ -114,3 +139,14 @@ T *Iterator<T>::getCurrent() const
     return this->ptr.lock().get() + currentIndex;
 }
 
+template<class T>
+std::weak_ptr<T[]> Iterator<T>::getCur()
+{
+    return this->ptr;
+}
+
+template<class T>
+const std::weak_ptr<T[]> Iterator<T>::getCur() const
+{
+    return this->ptr;
+}

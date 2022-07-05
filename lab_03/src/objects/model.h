@@ -14,7 +14,7 @@ class BaseModel : public VisibleObject
 {
 public:
     BaseModel() = default;
-    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
+    virtual void accept(std::shared_ptr<Visitor> &visitor) = 0;
     
     virtual ~BaseModel() = default;
 };
@@ -28,7 +28,7 @@ public:
     Model(const Model &model);
 
     void transform(const Point &move, const Point &scale, const Point &rotate) override;
-    void accept(std::shared_ptr<Visitor> visitor) override;
+    void accept(std::shared_ptr<Visitor> &visitor) override;
     bool isVisible() override { return true; };
     std::shared_ptr<Figure> getFigure() const;
 

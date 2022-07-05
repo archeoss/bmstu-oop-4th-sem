@@ -32,8 +32,8 @@ Point Camera::getPos()
     return curPos;
 }
 
-void Camera::accept(std::shared_ptr<Visitor> visitor)
+void Camera::accept(std::shared_ptr<Visitor> &visitor)
 {
-
+    visitor->visit(*this);
 }
 

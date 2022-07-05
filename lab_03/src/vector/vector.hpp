@@ -12,10 +12,10 @@ Vector<T>::Vector()
 }
 
 template<class T>
-Vector<T>::Vector(const T *array, size_t size)
+Vector<T>::Vector(const T *array, size_t ssize)
 {
     this->size = 0;
-    this->allocateNew(size);
+    this->allocateNew(ssize);
     for (const auto &elem: array)
     {
         this->push(elem);
@@ -27,7 +27,7 @@ Vector<T>::Vector(Vector<T> &vector)
 {
     this->size = 0;
     this->allocateNew(vector.memory_allocated);
-    for (const auto &elem: vector)
+    for (auto &elem: vector)
     {
         this->push(elem);
     }
@@ -65,10 +65,10 @@ Vector<T>::Vector(Vector<T> &&vector)
 }
 
 template<class T>
-Vector<T>::Vector(const T elem, size_t size)
+Vector<T>::Vector(const T elem, size_t ssize)
 {
     this->size = 0;
-    this->allocateNew(size);
+    this->allocateNew(ssize);
     this->push(elem);
 }
 
@@ -92,18 +92,18 @@ bool Vector<T>::isEmpty()
 }
 
 template<class T>
-void Vector<T>::allocateNew(size_t size)
+void Vector<T>::allocateNew(size_t ssize)
 {
     try
     {
-        this->value.reset(new T[size]);
+        this->value.reset(new T[ssize]);
     }
     catch (std::bad_alloc &exception)
     {
         //todo
     }
 
-    this->memory_allocated = size;
+    this->memory_allocated = ssize;
 }
 
 template<class T>
@@ -111,7 +111,7 @@ void Vector<T>::push(const T &elem)
 {
     if (this->size >= this->memory_allocated)
     {
-        allocateNew(size * 2);
+        allocateNew(size * 2 + sizeof(T));
     }
     this->value[static_cast<long long>(this->size++)] = elem;
 }
@@ -145,21 +145,33 @@ Iterator<T> Vector<T>::end()
 template<class T>
 T &Vector<T>::operator[](size_t pos)
 {
-//    Iterator<T> start = Iterator<T>(*this);
-//    start += pos;
-//
-//    return *start;
+    Iterator<T> start = Iterator<T>(*this);
+    start += pos;
+
+    return *start;
 }
 
 template<class T>
 void Vector<T>::remove(Iterator<T> &iter)
 {
-//    Iterator<T> iterB = iter + 1;
-//    Iterator<T> e = end();
+    Iterator<T> iterB = iter + 1;
+    Iterator<T> e = end();
 //    while (iterB != e)
 //    {
 //        iter.
 //    }
+}
+
+template<class T>
+std::shared_ptr<T[]> Vector<T>::getValue()
+{
+    return value;
+}
+
+template<class T>
+const std::shared_ptr<T[]> Vector<T>::getValue() const
+{
+    return value;
 }
 
 

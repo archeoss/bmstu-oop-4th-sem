@@ -11,11 +11,14 @@ template<class T>
 class Vector;
 
 template<class T>
-class Iterator : public std::iterator<std::bidirectional_iterator_tag, T>
+class Iterator : public std::iterator<std::random_access_iterator_tag, T>
 {
 public:
+    Iterator();
+    Iterator(Iterator<T> &iter);
+    explicit Iterator(Vector<T> &vector);
     Iterator(const Iterator<T> &iter);
-    Iterator(const Vector<T> &vector);
+    explicit Iterator(const Vector<T> &vector);
 
     T &operator*();
     T *operator->();
@@ -23,7 +26,8 @@ public:
     const T &operator*() const;
     const T *operator->() const;
 
-    const T &getCur() const;
+    std::weak_ptr<T[]> getCur();
+    const std::weak_ptr<T[]> getCur() const;
 
     explicit operator bool() const;
 
@@ -42,8 +46,9 @@ public:
     Iterator<T> &operator++();
 
 private:
-    std::weak_ptr<T[]> ptr;
     T *getCurrent() const;
+
+    std::weak_ptr<T[]> ptr;
     size_t currentIndex;
     size_t vectorSize;
 };

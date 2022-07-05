@@ -129,6 +129,7 @@ void MainWindow::on_pushButton_AddCamera_clicked()
         getScene(sc);
         try
         {
+            ui->comboBoxCamera->addItem(std::to_string(sc->getCams().getSize()).c_str());
             auto res = std::make_shared<AddCameraCommand<Scene>>(&Scene::addCamera);
             std::shared_ptr<BaseCommand<Scene>> cmd = res;
             facade->execute(cmd, sc);

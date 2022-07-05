@@ -13,21 +13,21 @@ class Composite : public Object
 {
 public:
     Composite() = default;
-    Composite(Component &obj);
-    Composite(Vector<Component> &vector);
+    explicit Composite(Component &obj);
+    explicit Composite(Vector<Component> &vector);
 
     size_t size() const;
 
-    bool add(Component &obj);
-    bool remove(Iterator<Object> &iter);
+    bool add(const Component &obj) override;
+    bool remove(const Iterator<Component> &iter) override;
 
     Vector<Component> &getObjs();
 
-    Iterator<Component> begin();
-    Iterator<Component> end();
+    Iterator<Component> begin() override;
+    Iterator<Component> end() override;
 
-    void accept(std::shared_ptr<Visitor> &visitor);
-    void transform(const Point &move, const Point &scale, const Point &turn);
+    void accept(std::shared_ptr<Visitor> &visitor) override;
+    void transform(const Point &move, const Point &scale, const Point &turn) override;
     
 private:
     Vector<Component> objects;

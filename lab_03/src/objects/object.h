@@ -19,10 +19,10 @@ public:
     virtual bool add(const std::shared_ptr<Object> &) { return false; };
     virtual bool remove(const Iterator<std::shared_ptr<Object>> &) { return false; };
 
-    virtual Iterator<std::shared_ptr<Object>> begin() { return Iterator<std::shared_ptr<Object>>(); };
-    virtual Iterator<std::shared_ptr<Object>> end() { return Iterator<std::shared_ptr<Object>>(); };
+    virtual Iterator<std::shared_ptr<Object>> begin() { return {}; };
+    virtual Iterator<std::shared_ptr<Object>> end() { return {}; };
 
-    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
+    virtual void accept(std::shared_ptr<Visitor> &visitor) = 0;
     virtual void transform(const Point &move, const Point &scale, const Point &rotate) = 0;
 };
 

@@ -15,12 +15,14 @@ size_t Composite::size() const
     return objects.getSize();
 }
 
-bool Composite::add(Component &obj)
+bool Composite::add(const Component &obj)
 {
     objects.push(obj);
+
+    return true;
 }
 
-bool Composite::remove(Iterator<Object> &iter)
+bool Composite::remove(const Iterator<Component> &iter)
 {
 //    objects.
 }

@@ -38,6 +38,9 @@ public:
 
     void push(const T &elem);
 
+    std::shared_ptr<T[]> getValue();
+    const std::shared_ptr<T[]> getValue() const;
+
     void remove(Iterator<T> &iter);
     void remove(size_t pos);
 
